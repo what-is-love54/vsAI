@@ -10,9 +10,9 @@ export const useInit = () => {
 			try {
 				__DEV__ && console.info('==-> Application Starting');
 			} catch (err) {
-				console.error('=-> Application Error', err);
+				console.error('==-> Application Error', err);
 			} finally {
-				console.info('=-> Application Started');
+				console.info('==-> Application Started');
 				await RNBootSplash.hide({fade: true});
 			}
 		};
