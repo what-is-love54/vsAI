@@ -5,7 +5,7 @@ module.exports = {
 	extends: [
 		'@react-native',
 		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended-type-checked',
+		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
 	],
@@ -13,7 +13,6 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: 'latest',
 		sourceType: 'module',
-		project: './tsconfig.json',
 		ecmaFeatures: {
 			jsx: true,
 		},
@@ -32,7 +31,41 @@ module.exports = {
 	globals: {
 		__DEV__: 'readonly',
 	},
-	ignorePatterns: ['dist', 'node_modules', 'android', 'ios', '.expo', '*.config.js'],
+	ignorePatterns: [
+		'dist',
+		'node_modules',
+		'android',
+		'ios',
+		'.expo',
+		'*.config.js',
+		'.eslintrc.js',
+		'babel.config.js',
+		'metro.config.js',
+		'jest.config.js',
+	],
+	overrides: [
+		{
+			files: ['*.ts', '*.tsx'],
+			parserOptions: {
+				project: './tsconfig.json',
+			},
+			extends: ['plugin:@typescript-eslint/recommended-type-checked'],
+			rules: {
+				'@typescript-eslint/require-await': 'warn',
+				'@typescript-eslint/promise-function-async': 'warn',
+				'@typescript-eslint/await-thenable': 'error',
+				'@typescript-eslint/no-floating-promises': 'warn',
+				'@typescript-eslint/no-misused-promises': [
+					'error',
+					{
+						checksVoidReturn: {
+							attributes: false,
+						},
+					},
+				],
+			},
+		},
+	],
 	rules: {
 		indent: ['error', 'tab', {SwitchCase: 1}],
 		quotes: ['error', 'single'],
@@ -41,7 +74,7 @@ module.exports = {
 		'max-len': [
 			'error',
 			{
-				code: 120,
+				code: 100,
 				ignorePattern: '^\\s*className=',
 				ignoreStrings: true,
 				ignoreTemplateLiterals: true,
@@ -49,7 +82,7 @@ module.exports = {
 		],
 		'padding-line-between-statements': [
 			'error',
-			{blankLine: 'always', prev: ['const', 'let', 'var'], next: '*'},
+			{blankLine: 'always', prev: ['const', 'var'], next: '*'},
 			{
 				blankLine: 'any',
 				prev: ['const', 'let', 'var'],
@@ -74,19 +107,6 @@ module.exports = {
 		'@typescript-eslint/no-inferrable-types': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
 		'require-await': 'warn',
-		'@typescript-eslint/require-await': 'warn',
-		'@typescript-eslint/promise-function-async': 'warn',
-		'@typescript-eslint/await-thenable': 'error',
-		'@typescript-eslint/no-floating-promises': 'warn',
-		'@typescript-eslint/no-misused-promises': [
-			'error',
-			{
-				checksVoidReturn: {
-					attributes: false,
-				},
-			},
-		],
-		// React Native specific
 		'react-native/no-unused-styles': 'warn',
 		'react-native/no-inline-styles': 'warn',
 		'react-native/no-color-literals': 'off',

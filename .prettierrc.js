@@ -13,7 +13,7 @@ module.exports = {
 	vueIndentScriptAndStyle: false,
 	proseWrap: 'preserve',
 	insertPragma: true,
-	printWidth: 120,
+	printWidth: 80,
 	requirePragma: false,
 	useTabs: true,
 	embeddedLanguageFormatting: 'auto',
