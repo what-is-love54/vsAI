@@ -67,6 +67,7 @@ module.exports = {
 		},
 	],
 	rules: {
+		'no-unused-expressions': 'off',
 		indent: ['error', 'tab', {SwitchCase: 1}],
 		quotes: ['error', 'single'],
 		semi: ['error', 'always'],
@@ -111,5 +112,12 @@ module.exports = {
 		'react-native/no-inline-styles': 'warn',
 		'react-native/no-color-literals': 'off',
 		'react-native/no-raw-text': 'off',
+		'@typescript-eslint/no-unused-expressions': [
+			'error',
+			{
+				allowShortCircuit: true,
+				allowTernary: true,
+			},
+		],
 	},
 };

@@ -8,11 +8,11 @@ export const useInit = () => {
 	useEffect(() => {
 		const initializing = async () => {
 			try {
-				console.info('=-> App Starting');
+				__DEV__ && console.info('==-> Application Starting');
 			} catch (err) {
-				console.error('=-> App Error', err);
+				console.error('=-> Application Error', err);
 			} finally {
-				console.info('=-> App Started');
+				console.info('=-> Application Started');
 				await RNBootSplash.hide({fade: true});
 			}
 		};
