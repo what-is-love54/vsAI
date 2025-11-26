@@ -25,7 +25,7 @@ class MainActivity : ReactActivity() {
 // MARK: ==--> add custom splash screen START
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    RNBootSplash.init(this, R.style.BootTheme)
+    RNBootSplash.init(this, R.style.AppTheme)
     super.onCreate(savedInstanceState)
   }
 
