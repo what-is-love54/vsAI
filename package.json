@@ -8,8 +8,9 @@
 		"lint": "eslint .",
 		"start": "react-native start",
 		"test": "jest",
-		"reinstall-ios": "rm -rf node_modules && rm -rf yarn.lock && cd ios/ && rm -rf Pods/ && rm -rf Podfile.lock && cd ../ && yarn install && cd ios/ && pod install && cd ../",
-		"reinstall-android": "rm -rf node_modules && rm -rf yarn.lock && yarn install && cd android/ && ./gradlew clean && ./gradlew assembleDebug && cd ../"
+		"delete-node_modules": "rm -rf node_modules && rm -rf yarn.lock && yarn install",
+		"reinstall-ios": "cd ios/ && rm -rf Pods/ && rm -rf Podfile.lock && cd ../ && cd ios/ && pod install && cd ../",
+		"reinstall-android": "cd android/ && rm -rf app/.cxx && rm -rf app/build && rm -rf build/ && ./gradlew clean && ./gradlew assembleDebug && cd ../"
 	},
 	"dependencies": {
 		"@react-native-community/netinfo": "^11.4.1",
