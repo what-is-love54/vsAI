@@ -1,48 +1,109 @@
 /** @format */
 
-import {NewAppScreen} from '@react-native/new-app-screen';
-import {StatusBar, StyleSheet, useColorScheme, View, Text} from 'react-native';
-import {
-	SafeAreaProvider,
-	useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import React, {useState, useEffect} from 'react';
+import {View, Button, Text, PermissionsAndroid, Platform} from 'react-native';
 import {useInit} from '~/hooks';
+import AudioRecorder from '~/modules/audio-recorder';
 
-function App() {
+const App = () => {
 	useInit();
-	const isDarkMode = useColorScheme() === 'dark';
+
+	const [isRecording, setIsRecording] = useState(false);
+	const [recordedFile, setRecordedFile] = useState<string | null>(null);
+	const [duration, setDuration] = useState(0);
+
+	const requestPermissions = async () => {
+		if (Platform.OS === 'android') {
+			const granted = await PermissionsAndroid.request(
+				PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+			);
+
+			return granted === PermissionsAndroid.RESULTS.GRANTED;
+		} else {
+			return await AudioRecorder.requestPermissions();
+		}
+	};
+
+	const handleStartRecording = async () => {
+		try {
+			const filePath = await AudioRecorder.startRecording();
+
+			setIsRecording(true);
+			setRecordedFile(filePath);
+		} catch (error) {
+			console.error('Failed to start recording:', error);
+		}
+	};
+
+	const handleStopRecording = async () => {
+		try {
+			const filePath = await AudioRecorder.stopRecording();
+
+			setIsRecording(false);
+			setRecordedFile(filePath);
+		} catch (error) {
+			console.error('Failed to stop recording:', error);
+		}
+	};
+
+	const handlePlayRecording = async () => {
+		if (recordedFile) {
+			try {
+				await AudioRecorder.playRecording(recordedFile);
+			} catch (error) {
+				console.error('Failed to play recording:', error);
+			}
+		}
+	};
+
+	useEffect(() => {
+		requestPermissions();
+
+		// Subscribe to events
+		const progressListener = AudioRecorder.addEventListener(
+			'onRecordingProgress',
+			event => {
+				setDuration(event.duration);
+			},
+		);
+
+		const completedListener = AudioRecorder.addEventListener(
+			'onPlaybackCompleted',
+			() => {
+				console.log('Playback completed');
+			},
+		);
+
+		return () => {
+			progressListener();
+			completedListener();
+		};
+	}, []);
 
 	return (
-		<SafeAreaProvider>
-			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+		<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+			<Text>Duration: {duration.toFixed(1)}s</Text>
 
-			<AppContent />
-		</SafeAreaProvider>
-	);
-}
+			{!isRecording ? (
+				<Button
+					title="Start Recording"
+					onPress={handleStartRecording}
+				/>
+			) : (
+				<Button
+					title="Stop Recording"
+					onPress={handleStopRecording}
+				/>
+			)}
 
-function AppContent() {
-	const safeAreaInsets = useSafeAreaInsets();
-
-	return (
-		<View style={styles.container}>
-			<NewAppScreen
-				templateFileName="App.tsx"
-				safeAreaInsets={safeAreaInsets}
-			/>
-			<View>
-				<Text>Hello world</Text>
-			</View>
-
-			<Text>Vlad</Text>
+			{recordedFile && !isRecording && (
+				<Button
+					title="Play Recording"
+					onPress={handlePlayRecording}
+				/>
+			)}
 		</View>
 	);
-}
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});
+};
 
 export default App;
