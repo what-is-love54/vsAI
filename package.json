@@ -8,8 +8,9 @@
 		"lint": "eslint .",
 		"start": "react-native start",
 		"test": "jest",
-		"reinstall-ios": "rm -rf node_modules && rm -rf yarn.lock && cd ios/ && rm -rf Pods/ && rm -rf Podfile.lock && cd ../ && yarn install && cd ios/ && pod install && cd ../",
-		"reinstall-android": "rm -rf node_modules && rm -rf yarn.lock && yarn install && cd android/ && ./gradlew clean && ./gradlew assembleDebug && cd ../"
+		"delete-node_modules": "rm -rf node_modules && rm -rf yarn.lock && yarn install",
+		"reinstall-ios": "cd ios/ && rm -rf Pods/ && rm -rf Podfile.lock && cd ../ && cd ios/ && pod install && cd ../",
+		"reinstall-android": "cd android/ && rm -rf app/.cxx && rm -rf app/build && rm -rf build/ && ./gradlew clean && ./gradlew assembleDebug && cd ../"
 	},
 	"dependencies": {
 		"@react-native-community/netinfo": "^11.4.1",
@@ -23,8 +24,6 @@
 		"react-i18next": "^16.3.5",
 		"react-native": "0.82.1",
 		"react-native-bootsplash": "^6.3.11",
-		"react-native-mmkv": "^4.0.1",
-		"react-native-nitro-modules": "^0.31.10",
 		"react-native-safe-area-context": "^5.5.2"
 	},
 	"devDependencies": {
