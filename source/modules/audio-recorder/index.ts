@@ -1,6 +1,6 @@
 /** @format */
 
-import {NativeEventEmitter, NativeModules} from 'react-native';
+import {NativeEventEmitter} from 'react-native';
 import NativeAudioRecorder from './NativeAudioRecorder';
 
 export type AudioRecorderEvent =
@@ -39,9 +39,7 @@ class AudioRecorderModule {
 	private listeners: Map<string, Set<(...args: unknown[]) => void>> = new Map();
 
 	constructor() {
-		this.eventEmitter = new NativeEventEmitter(
-			NativeModules.AudioRecorder ?? NativeAudioRecorder,
-		);
+		this.eventEmitter = new NativeEventEmitter(NativeAudioRecorder);
 	}
 
 	// Recording methods
