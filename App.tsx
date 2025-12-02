@@ -1,48 +1,50 @@
 /** @format */
 
-import {NewAppScreen} from '@react-native/new-app-screen';
-import {StatusBar, StyleSheet, useColorScheme, View, Text} from 'react-native';
-import {
-	SafeAreaProvider,
-	useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+// Example: App.tsx
+import React from 'react';
+import {Button, Text, View} from 'react-native';
 import {useInit} from '~/hooks';
+import NativeMicRecorder from '~/modules/NativeMicRecorder';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-function App() {
+export default function App() {
 	useInit();
-	const isDarkMode = useColorScheme() === 'dark';
+
+	const [recording, setRecording] = React.useState(false);
+	const [error, setError] = React.useState<string | null>(null);
+
+	const handleToggleRecord = async () => {
+		setError(null);
+		try {
+			if (!recording) {
+				await NativeMicRecorder.start();
+				setRecording(true);
+			} else {
+				await NativeMicRecorder.stop(); // stops & plays
+				setRecording(false);
+			}
+		} catch (e: unknown) {
+			setError(e?.message ?? 'Unknown error');
+			setRecording(false);
+		}
+	};
 
 	return (
 		<SafeAreaProvider>
-			<StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-
-			<AppContent />
+			<View
+				style={{
+					flex: 1,
+					alignItems: 'center',
+					justifyContent: 'center',
+					gap: 16,
+				}}
+			>
+				<Button
+					title={recording ? 'Stop & Play' : 'Start Recording'}
+					onPress={handleToggleRecord}
+				/>
+				{!!error && <Text style={{color: 'red'}}>{error}</Text>}
+			</View>
 		</SafeAreaProvider>
 	);
 }
-
-function AppContent() {
-	const safeAreaInsets = useSafeAreaInsets();
-
-	return (
-		<View style={styles.container}>
-			<NewAppScreen
-				templateFileName="App.tsx"
-				safeAreaInsets={safeAreaInsets}
-			/>
-			<View>
-				<Text>Hello world</Text>
-			</View>
-
-			<Text>Vlad</Text>
-		</View>
-	);
-}
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
-});
-
-export default App;

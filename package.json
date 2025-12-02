@@ -12,6 +12,14 @@
 		"reinstall-ios": "cd ios/ && rm -rf Pods/ && rm -rf Podfile.lock && cd ../ && cd ios/ && pod install && cd ../",
 		"reinstall-android": "cd android/ && rm -rf app/.cxx && rm -rf app/build && rm -rf build/ && ./gradlew clean && ./gradlew assembleDebug && cd ../"
 	},
+	"codegenConfig": {
+		"name": "NativeMicRecorderSpec",
+		"type": "modules",
+		"jsSrcsDir": "./source/modules",
+		"android": {
+			"javaPackageName": "com.vsAI"
+		}
+	},
 	"dependencies": {
 		"@react-native-community/netinfo": "^11.4.1",
 		"@react-native/new-app-screen": "0.82.1",
@@ -31,7 +39,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.25.2",
 		"@babel/preset-env": "^7.25.3",
-		"@babel/runtime": "^7.25.0",
+		"@babel/runtime": "^7.28.4",
 		"@react-native-community/cli": "20.0.0",
 		"@react-native-community/cli-platform-android": "20.0.0",
 		"@react-native-community/cli-platform-ios": "20.0.0",

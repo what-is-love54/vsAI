@@ -12,6 +12,8 @@
 		3328D2188E09FB7F61827317 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		E45DF1C42EDF710000E587D6 /* RCTMicRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45DF1C32EDF710000E587D6 /* RCTMicRecorder.swift */; };
+		E45DF1C82EDF711B00E587D6 /* RCTMicRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = E45DF1C72EDF711B00E587D6 /* RCTMicRecorder.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,10 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-vsAI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-vsAI.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = vsAI/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = vsAI/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E45DF1C32EDF710000E587D6 /* RCTMicRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RCTMicRecorder.swift; path = vsAI/RCTMicRecorder.swift; sourceTree = "<group>"; };
+		E45DF1C52EDF711B00E587D6 /* vsAI-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vsAI-Bridging-Header.h"; sourceTree = "<group>"; };
+		E45DF1C62EDF711B00E587D6 /* RCTMicRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RCTMicRecorder.h; path = vsAI/RCTMicRecorder.h; sourceTree = "<group>"; };
+		E45DF1C72EDF711B00E587D6 /* RCTMicRecorder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = RCTMicRecorder.mm; path = vsAI/RCTMicRecorder.mm; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -47,6 +53,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				E45DF1C32EDF710000E587D6 /* RCTMicRecorder.swift */,
+				E45DF1C62EDF711B00E587D6 /* RCTMicRecorder.h */,
+				E45DF1C72EDF711B00E587D6 /* RCTMicRecorder.mm */,
+				E45DF1C52EDF711B00E587D6 /* vsAI-Bridging-Header.h */,
 			);
 			name = vsAI;
 			sourceTree = "<group>";
@@ -131,7 +141,7 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 2610;
 					};
 				};
 			};
@@ -247,6 +257,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				E45DF1C82EDF711B00E587D6 /* RCTMicRecorder.mm in Sources */,
+				E45DF1C42EDF710000E587D6 /* RCTMicRecorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +287,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = vsAI;
+				SWIFT_OBJC_BRIDGING_HEADER = "vsAI-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -302,6 +315,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = vsAI;
+				SWIFT_OBJC_BRIDGING_HEADER = "vsAI-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

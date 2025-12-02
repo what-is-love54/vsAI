@@ -8,6 +8,11 @@
 
 #import "RCTMicRecorder.h"
 #import <React/RCTLog.h>
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventEmitter.h>
+#import <AVFoundation/AVFoundation.h>
+
+#import <React-RCTAppDelegate/RCTDefaultReactNativeFactoryDelegate.h>
 
 #import "vsAI-Swift.h"
 
@@ -15,7 +20,9 @@
 @property (nonatomic, strong) MicRecorder *swiftModule;
 @end
 
-@implementation RCTMicRecorder
+@implementation RCTMicRecorder {
+  MicRecorder *_micRecorder;
+}
 
 RCT_EXPORT_MODULE(NativeMicRecorder)
 
@@ -23,6 +30,8 @@ RCT_EXPORT_MODULE(NativeMicRecorder)
 {
   self = [super init];
   if (self) {
+    // If you want singleton from Swift:
+    // _swiftModule = [MicRecorder shared];
     _swiftModule = [[MicRecorder alloc] init];
   }
   return self;
@@ -33,8 +42,8 @@ RCT_EXPORT_MODULE(NativeMicRecorder)
   return std::make_shared<facebook::react::NativeMicRecorderSpecJSI>(params);
 }
 
-- (void)start:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject {
-  [self.swiftModule start:^(NSError * _Nullable error) { // Call instance method
+- (void)start:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  [self.swiftModule startRecordingWithCompletion:^(NSError * _Nullable error) {
     if (error) {
       reject(@"mic_start_error", error.localizedDescription, error);
     } else {
@@ -43,14 +52,15 @@ RCT_EXPORT_MODULE(NativeMicRecorder)
   }];
 }
 
-- (void)stop:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject {
-  [self.swiftModule stop:^(NSError * _Nullable error) { // Call instance method
+- (void)stop:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+  [self.swiftModule stopRecordingWithCompletion:^(NSError * _Nullable error) {
     if (error) {
       reject(@"mic_stop_error", error.localizedDescription, error);
     } else {
-      resolve(self.swiftModule.audioFileURL.absoluteString);
+      resolve(nil);
     }
   }];
 }
+
 
 @end
